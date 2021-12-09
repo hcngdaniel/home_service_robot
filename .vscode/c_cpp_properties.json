@@ -1,0 +1,51 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/hcng/catkin_ws/devel/include/**",
+        "/opt/ros/melodic/include/**",
+        "/home/hcng/catkin_ws/src/ros_astra_camera/include/**",
+        "/home/hcng/catkin_ws/src/vision_opencv/cv_bridge/include/**",
+        "/home/hcng/catkin_ws/src/DynamixelSDK/ros/dynamixel_sdk/include/**",
+        "/home/hcng/catkin_ws/src/dynamixel-workbench/dynamixel_workbench_controllers/include/**",
+        "/home/hcng/catkin_ws/src/dynamixel-workbench/dynamixel_workbench_operators/include/**",
+        "/home/hcng/catkin_ws/src/dynamixel-workbench/dynamixel_workbench_toolbox/include/**",
+        "/home/hcng/catkin_ws/src/geometry/eigen_conversions/include/**",
+        "/home/hcng/catkin_ws/src/home_service_robot/include/**",
+        "/home/hcng/catkin_ws/src/vision_opencv/image_geometry/include/**",
+        "/home/hcng/catkin_ws/src/geometry/kdl_conversions/include/**",
+        "/home/hcng/catkin_ws/src/kobuki_bumper2pc/include/**",
+        "/home/hcng/catkin_ws/src/kobuki_keyop/include/**",
+        "/home/hcng/catkin_ws/src/kobuki_node/include/**",
+        "/home/hcng/catkin_ws/src/kobuki_safety_controller/include/**",
+        "/home/hcng/catkin_ws/src/mr_voice/include/**",
+        "/home/hcng/catkin_ws/src/open_manipulator/open_manipulator_control_gui/include/**",
+        "/home/hcng/catkin_ws/src/open_manipulator/open_manipulator_controller/include/**",
+        "/home/hcng/catkin_ws/src/open_manipulator/open_manipulator_libs/include/**",
+        "/home/hcng/catkin_ws/src/open_manipulator/open_manipulator_teleop/include/**",
+        "/home/hcng/catkin_ws/src/robotis_manipulator/include/**",
+        "/home/hcng/catkin_ws/src/rplidar_turtlebot_nav/include/**",
+        "/home/hcng/catkin_ws/src/geometry/tf/include/**",
+        "/home/hcng/catkin_ws/src/geometry2/tf2/include/**",
+        "/home/hcng/catkin_ws/src/geometry2/tf2_bullet/include/**",
+        "/home/hcng/catkin_ws/src/geometry2/tf2_eigen/include/**",
+        "/home/hcng/catkin_ws/src/geometry2/tf2_geometry_msgs/include/**",
+        "/home/hcng/catkin_ws/src/geometry2/tf2_kdl/include/**",
+        "/home/hcng/catkin_ws/src/geometry2/tf2_msgs/include/**",
+        "/home/hcng/catkin_ws/src/geometry2/tf2_ros/include/**",
+        "/home/hcng/catkin_ws/src/geometry2/tf2_sensor_msgs/include/**",
+        "/home/hcng/catkin_ws/src/geometry/tf_conversions/include/**",
+        "/home/hcng/catkin_ws/src/turtlebot_apps/turtlebot_actions/include/**",
+        "/home/hcng/catkin_ws/src/yocs_cmd_vel_mux/include/**",
+        "/home/hcng/catkin_ws/src/yocs_controllers/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}

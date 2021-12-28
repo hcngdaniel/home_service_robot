@@ -38,18 +38,15 @@ class Manipulator:
     def get_xyz(self):
         return (self.x, self.y, self.z)
         
-    def move_to(self, x, y, z, t):
-        t = round(t, 1)
+    def move_to(self, x, y, z, t, slices=10):
         x1, y1, z1 = self.get_xyz()
         x2, y2, z2 = x, y, z
-        if None in (x2, y2, z2):
-            return False
         fy = lambda x: (y1 - y2) / (x1 - x2) * x + (y1 - (y1 - y2) / (x1 - x2) * x1)
         fz = lambda x: (z1 - z2) / (x1 - x2) * x + (z1 - (z1 - z2) / (x1 - x2) * x1)
-        for i in range(int(t * 10)):
-            goal_x = (x2 - x1) / (t * 10)
-            goal_y, goal_z = fy(x), fz(x)
-            if not (round(goal_x, 3) == round(x1, 3) and round(goal_y, 3) == round(y1, 3) and round(goal_z, 3) == round(z1, 3)):
-                rospy.loginfo(self.move_directly_to(round(goal_x, 3), round(goal_y, 3), round(goal_z, 3), 0.1, delay=0.1))
+        for i in range(slices):
+            goal_x = x1 + (x2 - x1) / slices * (i + 1)
+            goal_y, goal_z = fy(goal_x), fz(goal_x)
+            goal_x, goal_y, goal_z = round(goal_x, 3), round(goal_y, 3), round(goal_z, 3)
+            rospy.loginfo(self.move_directly_to(goal_x, goal_y, goal_z, t / slices, delay=0))
         return True
 

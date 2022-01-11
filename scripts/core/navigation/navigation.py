@@ -18,7 +18,7 @@ class Navigation:
         rospy.loginfo("Connected to move base server")
         
         self.frame_id = frame_id
-        self.init_pose = PoseWithCovarianceStamped(")
+        self.init_pose = PoseWithCovarianceStamped()
         self.current_pose = PoseWithCovarianceStamped()
         self.goal = MoveBaseGoal()
         self.last_clicked_point = PointStamped()

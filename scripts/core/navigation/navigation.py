@@ -80,7 +80,7 @@ class Navigation:
         return self.last_goal_pose.header.stamp != ""
     
     @staticmethod
-    def point_to_pose(self, x, y, a):
+    def point_to_pose(x, y, a):
         pose = Pose()
         q = quaternion_from_euler(0.0, 0.0, a)
         q = Quaternion(q[0], q[1], q[2], q[3])

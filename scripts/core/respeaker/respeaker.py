@@ -51,5 +51,5 @@ if __name__ == "__main__":
         text = respeaker.get_text()
         if text != "":
             print(repr(text))
-        rospy.Rate(20).sleep()
+        rospy.Rate(20).sleep() # very important
 

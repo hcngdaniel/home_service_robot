@@ -1,14 +1,8 @@
 #!/usr/bin/env python3
-import rospy
-from core import *
+from core import Assistant, Dataset
 
-
-rospy.init_node("asdf")
-rospy.loginfo("Node started")
-respeaker = Respeaker()
-while not rospy.is_shutdown():
-    text = respeaker.get_text()
-    if text != "":
-        print(repr(text))
-    rospy.Rate(20).sleep()
-
+assitant = Assistant(0.2)
+dataset = Dataset().from_yaml("../NLU_files/test.yaml")
+assitant.set_dataset(dataset)
+assitant.set_response("turnLightOn", "Ok, I will turn the lights on in {room.value.value}")
+print(assitant("Hey, lights on in the lounge!"))

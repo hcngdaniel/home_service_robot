@@ -16,9 +16,8 @@ class SnipsNLU:
     def save(self, engine_path):
         self.engine.persist(engine_path)
     
-    def fit_dataset(self, dataset_path):
-        with io.open(dataset_path) as f:
-            self.engine.fit(json.load(f))
+    def fit_dataset(self, data_json):
+            self.engine.fit(data_json)
     
     def parse(self, text):
         data = self.engine.parse(text)

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import snips_nlu
 from .snips import SnipsNLU
 from .dataset import Dataset
 from collections import namedtuple
@@ -119,7 +120,7 @@ class Assistant:
             dataset = IO.read().decode()
 
             ret = Assistant(config["min_strict"])
-            ret.nlu.engine.from_byte_array(engine)
+            ret.nlu.engine = snips_nlu.SnipsNLUEngine.from_byte_array(engine)
             ds = DS.from_yaml_files("en", [io.StringIO(dataset)])
             ret.dataset = Dataset(ds.intents, ds.entities)
             for intent_name, format, callback in zip(_response_intent_names, _response_formats, _response_callbacks):

@@ -10,12 +10,6 @@ class SnipsNLU:
     def __init__(self):
         self.engine = SnipsNLUEngine(config=CONFIG_EN)
     
-    def load(self, engine_path):
-        self.engine = SnipsNLUEngine.from_path(engine_path)
-    
-    def save(self, engine_path):
-        self.engine.persist(engine_path)
-    
     def fit_dataset(self, data_json):
             self.engine.fit(data_json)
     

@@ -5,3 +5,4 @@
 #from .respeaker.respeaker import Respeaker
 from .nlu.assistant import Assistant
 from .nlu.dataset import Dataset
+from .nlu.session import Session

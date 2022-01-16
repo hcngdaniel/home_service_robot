@@ -1,15 +1,20 @@
 #!/usr/bin/env python3
-from core import Assistant, Dataset
-import io
+from core import Assistant, Dataset, Session
 
 
-assistant = Assistant.load("assistant.tar")
-# assistant = Assistant(0.2)
-# dataset = Dataset()
-# dataset = dataset.from_yaml("../NLU_files/test.yaml")
-# assistant.set_dataset(dataset)
-# assistant.set_response("turnLightOn", "Ok, I will turn the lights on in {room.value.value}")
-# assistant.save("assistant.tar")
-print(assistant("Please turn the lights on in the bathroom"))
-print(assistant("Can you turn on the lights in the lounge"))
-print(assistant("Lights on in bedroom"))
+def callback(intent, missing_slots, response, assistant):
+    session = Session(assistant)
+    session.request(intent["input"])
+    session.set_slot("room", "please turn on the lights in kitchen")
+    print(session.parse_result)
+    s0 = "slots"
+    s1 = "value"
+    print(f"Session: Ok, I will turn on the lights in {session.parse_result[s0][0][s1][s1]}")
+
+assistant = Assistant.load("test.tar")
+assistant.set_dataset(Dataset().from_yaml("../NLU_files/test.yaml"))
+assistant.set_response("turnLightOn", "Ok, I will turn the lights on in {room.value.value}", callback=callback)
+assistant.set_response("SLOTroom", "u mean the slot {room.value.value}")
+print("ready")
+for i in range(100):
+    print(assistant(input()))

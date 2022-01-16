@@ -1,3 +1,15 @@
+---
+type: intent
+name: SLOTroom
+slots:
+  - name: room
+    entity: room
+utterances:
+  - room = [room](bedroom)
+  - room = [room](kitchen)
+  - room = [room](garden)
+  - room = [room](living room)
+
 # turnLightOn intent
 ---
 type: intent
@@ -10,7 +22,6 @@ utterances:
   - give me some light in the [room](bathroom) please
   - Can you light up the [room](living room) ?
   - switch the [room](bedroom)'s lights on please
-  - Lights on in [room](kitchen)
 
 # turnLightOff intent
 ---
@@ -49,3 +60,4 @@ values:
 - bedroom
 - [living room, main room, lounge]
 - [garden, yard, backyard]
+- kitchen

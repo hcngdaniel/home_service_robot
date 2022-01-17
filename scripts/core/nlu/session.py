@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import typing
-from .assistant import Assistant
 from snips_nlu.dataset.intent import Intent
+from .word_dict import random_dict
+import random
 
 
 class NotRequestedError(Exception):
@@ -9,24 +10,33 @@ class NotRequestedError(Exception):
 
 
 class Session:
-    def __init__(self, assistant: Assistant) -> None:
-        self.assistant: Assistant = assistant
+    def __init__(self, assistant) -> None:
+        self.assistant = assistant
         self.parse_result: typing.Dict = None
 
     def set_slot(self, slot_name: typing.AnyStr, value: typing.AnyStr, callback: typing.Callable = None) -> typing.Dict:
+        if len(value.strip().split(" ")) == 1:
+            value = " ".join(random.choices(random_dict, k=3)) + " " + value
         if self.parse_result is None:
             raise NotRequestedError("please request first")
-        slot = self.assistant.nlu.engine.get_slots(text=slot_name + " = " + value, intent="SLOT" + slot_name)[0]
+        try:
+            slot = self.assistant.nlu.engine.get_slots(text=value, intent="ENTITY" + self.__find_entity_by_slot_name(slot_name))[0]
+        except:
+            raise Exception("cannot regonize value")
+        slot["range"]["start"], slot["range"]["end"] = float("nan"), float("nan")
         self.parse_result["slots"].append(slot)
         if callable(callback):
-            callback(self.parse_result)
-        return self.parse_result
+            callback(self)
+        return self
+
+    def __find_entity_by_slot_name(self, slot_name) -> typing.AnyStr:
+        return self.expected_intent.slot_mapping[slot_name]
 
     def request(self, text: typing.AnyStr, callback: typing.Callable = None) -> typing.Dict:
         self.parse_result = self.assistant.nlu.parse(text)
         if callable(callback):
-            callback(self.parse_result)
-        return self.parse_result
+            callback(self)
+        return self
 
     @property
     def intent_name(self) -> typing.AnyStr:

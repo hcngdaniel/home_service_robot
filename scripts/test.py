@@ -2,19 +2,19 @@
 from core import Assistant, Dataset, Session
 
 
-def callback(intent, missing_slots, response, assistant):
-    session = Session(assistant)
-    session.request(intent["input"])
-    session.set_slot("room", "please turn on the lights in kitchen")
-    print(session.parse_result)
-    s0 = "slots"
-    s1 = "value"
-    print(f"Session: Ok, I will turn on the lights in {session.parse_result[s0][0][s1][s1]}")
+def callback(session):
+    if session.intent_name == "turnLightOn":
+        while "room" in session.missing_slots:
+            print("Ok, but which room?")
+            session.set_slot("room", input())
+        print(f"Ok, I will turn on the lights in {session.parse_result['slots'][0]['value']['value']}")
+    elif session.intent_name == "turnLightOff":
+        while "room" in session.missing_slots:
+            print("Ok, but which room?")
+            session.set_slot("room", input())
+        print(f"Ok, I will turn off the lights in {session.parse_result['slots'][0]['value']['value']}")
 
 assistant = Assistant.load("test.tar")
-assistant.set_dataset(Dataset().from_yaml("../NLU_files/test.yaml"))
-assistant.set_response("turnLightOn", "Ok, I will turn the lights on in {room.value.value}", callback=callback)
-assistant.set_response("SLOTroom", "u mean the slot {room.value.value}")
 print("ready")
 for i in range(100):
-    print(assistant(input()))
+    assistant.session.request(input(), callback=callback)

@@ -5,10 +5,9 @@ slots:
   - name: room
     entity: room
 utterances:
-  - room = [room](bedroom)
-  - room = [room](kitchen)
-  - room = [room](garden)
-  - room = [room](living room)
+  - light ef the in [room](kitchen) sudo update
+  - some please switch [room](bathroom) will you
+  - to temp in [room](living room) perhaps die
 
 # turnLightOn intent
 ---

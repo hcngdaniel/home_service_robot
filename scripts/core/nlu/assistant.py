@@ -22,7 +22,7 @@ class Assistant:
         self.dataset = dataset
 
     def save(self, path):
-        with tarfile.open(path, "w") as f:
+        with tarfile.open(path, "w:gz") as f:
             # engine
             obj = io.BytesIO(pickle.dumps(self.nlu.engine.to_byte_array()))
             tarinfo = tarfile.TarInfo(name="engine")
@@ -44,7 +44,7 @@ class Assistant:
     @classmethod
     def load(cls, path):
         ret = cls()
-        with tarfile.open(path, "r") as f:
+        with tarfile.open(path, "r:gz") as f:
             # engine
             IO = f.extractfile(f.getmember("engine"))
             ret.nlu.engine = snips_nlu.SnipsNLUEngine.from_byte_array(pickle.loads(IO.read()))

@@ -13,8 +13,11 @@ def callback(session):
             print("Ok, but which room?")
             session.set_slot("room", input())
         print(f"Ok, I will turn off the lights in {session.parse_result['slots'][0]['value']['value']}")
+    print(session.parse_result)
 
-assistant = Assistant.load("test.tar")
+assistant = Assistant()
+assistant.set_dataset(Dataset().from_yaml("../NLU_files/test.yaml"))
+assistant.save("test.tar")
 print("ready")
-for i in range(100):
+for i in range(1000000):
     assistant.session.request(input(), callback=callback)

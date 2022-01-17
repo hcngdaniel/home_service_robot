@@ -24,6 +24,7 @@ class Session:
         except:
             raise Exception("cannot regonize value")
         slot["range"]["start"], slot["range"]["end"] = float("nan"), float("nan")
+        slot["slotName"] = slot_name
         self.parse_result["slots"].append(slot)
         if callable(callback):
             callback(self)

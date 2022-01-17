@@ -6,14 +6,21 @@ def callback(session):
     if session.intent_name == "turnLightOn":
         while "room" in session.missing_slots:
             print("Ok, but which room?")
-            session.set_slot("room", input())
+            try:
+                session.set_slot("room", input())
+            except Exception:
+                print("sorry, I cannot understand")
         print(f"Ok, I will turn on the lights in {session.parse_result['slots'][0]['value']['value']}")
     elif session.intent_name == "turnLightOff":
         while "room" in session.missing_slots:
             print("Ok, but which room?")
-            session.set_slot("room", input())
+            try:
+                session.set_slot("room", input())
+            except Exception:
+                print("sorry, I cannot understand")
         print(f"Ok, I will turn off the lights in {session.parse_result['slots'][0]['value']['value']}")
-    print(session.parse_result)
+    elif session.intent_name == None:
+        print("sorry, I cannot understand")
 
 assistant = Assistant.load("test.tar")
 print("ready")

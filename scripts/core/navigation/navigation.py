@@ -70,6 +70,10 @@ class Navigation:
         rospy.wait_for_message("/clicked_point", PointStamped)
         rospy.loginfo("Read the rviz point")
         return self.last_clicked_point
+
+    def get_clicked_pose_in_rviz(self):
+        point = self.get_clicked_point_in_rviz()
+        return self.point_to_pose(point.point.x, point.point.y, point.point.z)
     
     def set_goal_in_rviz(self):
         self.last_goal_pose = PoseStamped()
@@ -90,10 +94,10 @@ class Navigation:
     
     def set_init_pose(self, x, y, a):
         msg = PoseWithCovarianceStamped()
-        msg.pose = self.point_to_pose(x, y, a)
+        msg.pose.pose = self.point_to_pose(x, y, a)
         msg.header.stamp = rospy.Time.now()
         msg.header.frame_id = self.frame_id
-        self.__init_pub(msg)
+        self.__init_pub.publish(msg)
     
     def move_to(self, x, y, a):
         goal = self.point_to_pose(x, y, a)

@@ -1,12 +1,17 @@
+#!/usr/bin/env python3
 import sys
 import rospkg
-print(f"path: {rospkg.RosPack()}")
-sys.path.append(f"{rospkg.RosPack().get_path('home_service_robot')}/scripts")
 import rospy
+sys.path.append(f"{rospkg.RosPack().get_path('home_service_robot')}/scripts")
+
 import core
 
-# def find_book():
-#     astra = core.Astra()
-#     manipulator = core.Manipulator()
-#     navigation = core.Navigation()
 
+rospy.init_node('test')
+assistant = core.nlu.Assistant()
+navigation = core.Navigation()
+# pose = navigation.point_to_pose(1.13791871071, -0.632079899311, 0.403900146484)
+# navigation.move_to(pose.position.x, pose.position.y, pose.orientation.z)
+while not rospy.is_shutdown():
+    pose = navigation.get_clicked_pose_in_rviz()
+    print(navigation.move_to(pose.position.x, pose.position.y, pose.orientation.z))

@@ -22,7 +22,7 @@ class Navigation:
         self.current_pose = PoseWithCovarianceStamped()
         self.goal = MoveBaseGoal()
         self.last_clicked_point = PointStamped()
-        self.last_goal_pose = PoseStaped()
+        self.last_goal_pose = PoseStamped()
         self.status = GoalStatusArray()
         self.status_code = 0
         self.status_text = ""
@@ -78,9 +78,8 @@ class Navigation:
         rospy.loginfo("Set goal finished")
         time.sleep(1)
         return self.last_goal_pose.header.stamp != ""
-    
-    @staticmethod
-    def point_to_pose(x, y, a):
+
+    def point_to_pose(self, x, y, a):
         pose = Pose()
         q = quaternion_from_euler(0.0, 0.0, a)
         q = Quaternion(q[0], q[1], q[2], q[3])
@@ -97,7 +96,7 @@ class Navigation:
         self.__init_pub(msg)
     
     def move_to(self, x, y, a):
-        goal = point_to_pose(x, y, a)
+        goal = self.point_to_pose(x, y, a)
         self.goal = MoveBaseGoal()
         self.goal.target_pose.header.frame_id = self.frame_id
         self.goal.target_pose.header.stamp = rospy.Time.now()

@@ -22,7 +22,7 @@ class Session:
         try:
             slot = self.assistant.nlu.engine.get_slots(text=value, intent="ENTITY" + self.__find_entity_by_slot_name(slot_name))[0]
         except:
-            raise Exception("cannot regonize value")
+            raise ValueError("cannot regonize value")
         slot["range"]["start"], slot["range"]["end"] = float("nan"), float("nan")
         slot["slotName"] = slot_name
         self.parse_result["slots"].append(slot)
@@ -50,7 +50,7 @@ class Session:
         for intent in self.assistant.dataset.intents:
             if intent.intent_name == self.intent_name:
                 return intent
-        raise Exception("intent not found, so weird")
+        raise RuntimeError("intent not found, so weird")
 
     @property
     def expected_slots(self) -> typing.List[typing.AnyStr]:

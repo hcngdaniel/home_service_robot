@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from core import Assistant, Dataset, Session
+from core import nlu
 
 
 def callback(session):
@@ -8,7 +8,7 @@ def callback(session):
             print("Ok, but which room?")
             try:
                 session.set_slot("room", input())
-            except Exception:
+            except ValueError:
                 print("sorry, I cannot understand")
         print(f"Ok, I will turn on the lights in {session.parse_result['slots'][0]['value']['value']}")
     elif session.intent_name == "turnLightOff":
@@ -16,13 +16,15 @@ def callback(session):
             print("Ok, but which room?")
             try:
                 session.set_slot("room", input())
-            except Exception:
+            except ValueError:
                 print("sorry, I cannot understand")
         print(f"Ok, I will turn off the lights in {session.parse_result['slots'][0]['value']['value']}")
-    elif session.intent_name == None:
+    elif session.intent_name is None:
         print("sorry, I cannot understand")
 
-assistant = Assistant.load("test.tar")
+
+assistant = nlu.Assistant()
+assistant.set_dataset(nlu.Dataset().from_yaml("../NLU_files/test.yaml"))
 print("ready")
 for i in range(1000000):
     assistant.session.request(input(), callback=callback)

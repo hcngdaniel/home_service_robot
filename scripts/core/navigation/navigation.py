@@ -2,7 +2,7 @@
 import rospy
 import actionlib
 import time
-from geometry_msgs.msg import Pose, PoseWithCovarianceStamped, Point, Quaternion, PointStamped, PoseStamped
+from geometry_msgs.msg import Pose, PoseWithCovarianceStamped, Quaternion, PointStamped, PoseStamped
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from tf.transformations import quaternion_from_euler
 from actionlib_msgs.msg import GoalStatusArray
@@ -113,5 +113,3 @@ class Navigation:
         else:
             rospy.loginfo("Failed to reach point")
         return success
-    
-

@@ -29,7 +29,7 @@ class Navigation:
         
         rospy.on_shutdown(self.shutdown)
         
-        rospy.Subscriber("/initial_pose", PoseWithCovarianceStamped, callback=self.__initial_pose_callback)
+        rospy.Subscriber("/initialpose", PoseWithCovarianceStamped, callback=self.__initial_pose_callback)
         rospy.Subscriber("/amcl_pose", PoseWithCovarianceStamped, callback=self.__amcl_pose_callback)
         rospy.Subscriber("/clicked_point", PointStamped, callback=self.__clicked_point_callback)
         rospy.Subscriber("/move_base_simple/goal", PoseStamped, callback=self.__goal_callback)

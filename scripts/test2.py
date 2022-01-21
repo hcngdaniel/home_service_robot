@@ -7,6 +7,7 @@ import cv2
 tts = core.YourTTS('sample.wav')
 tts.say("Hello, I am a respeaker")
 
+exit()
 rospy.init_node("test2")
 astra = core.Astra()
 

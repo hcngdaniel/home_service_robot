@@ -5,4 +5,5 @@ from .navigation.navigation import Navigation
 from .respeaker.respeaker import Respeaker
 from .YourTTS.YourTTS import YourTTS
 from .nlu import nlu
+from .QRCode.QRCode_decoder import QRCodeDecoder
 from .utils import utils

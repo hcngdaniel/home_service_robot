@@ -1,3 +1,4 @@
 .idea/
 .vscode/
-/scripts/core/YourTTS/model/*
+/scripts/core/YourTTS/model/
+/scripts/sample.wav

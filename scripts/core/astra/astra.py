@@ -1,4 +1,6 @@
 #!usr/bin/env python3
+import os
+import sys
 import rospy
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
@@ -29,16 +31,24 @@ class Astra:
     def read_depth(self):
         if self.__depth_img is not None:
             return self.__depth_img
-        return np.zeros((480, 640, 3), dtype=np.uint8)
-    
-    def get_euclidean_distance(self, x, y, depth_img):
+        return np.zeros((480, 640), dtype=np.uint8)
+
+    def get_real_xyz(self, x, y, depth_img):
         depth = depth_img[y][x]
         horiz_len = 2 * np.tan(np.deg2rad(60))
         vert_len = 2 * np.tan(np.deg2rad(49.5))
-        rz = depth
-        rx = (x - 320) / 640 * horiz_len
-        ry = (y - 240) / 480 * vert_len
-        distance = np.sqrt(np.sum(np.square([rx, ry, rz])))
+        rz = float(depth)
+        rx = float((x - 320) / 640 * horiz_len)
+        ry = float((y - 240) / 480 * vert_len)
+        return (rx, ry, rz)
+
+    def get_euclidean_distance(self, x, y, depth_img):
+        rx, ry, rz = self.get_real_xyz(x, y, depth_img)
+        sys.path.append(f'{os.path.dirname(__file__)}/..')
+        from utils import utils
+        distance = utils.distance((rx, ry, rz), (0, 0, 0))
+        del utils
+        sys.path.pop()
         return distance
     
     def __call__(self):

@@ -25,6 +25,7 @@ def callback(session):
 
 assistant = nlu.Assistant()
 assistant.set_dataset(nlu.Dataset().from_yaml("../NLU_files/test.yaml"))
+assistant.save("asdf.tar")
 print("ready")
 for i in range(1000000):
     assistant.session.request(input(), callback=callback)

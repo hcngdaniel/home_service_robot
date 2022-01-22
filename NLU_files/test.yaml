@@ -11,4 +11,4 @@ type: entity
 name: book
 automatically_extensible: yes
 value:
-  - frankenstein
+  -

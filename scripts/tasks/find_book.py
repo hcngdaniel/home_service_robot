@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 import sys
+import os
 import rospkg
 import rospy
+
 try:
     sys.path.append(f"{rospkg.RosPack().get_path('home_service_robot')}/scripts")
 except:
@@ -10,6 +12,18 @@ except:
 import core
 
 
+if __name__ == '__main__':
+    rospy.init_node('find_book_demo')
+
 astra = core.Astra()
 navigation = core.Navigation()
+respeaker = core.Respeaker()
+assistant = core.nlu.Assistant.boo(f'{os.path.dirname(__file__)}/assistant.assistant')
+tts = core.YourTTS(['/home/hcng/catkin_ws/src/home_service_robot/scripts/sample.wav'])
 
+
+def find_book(text: str):
+
+
+if __name__ == '__main__':
+    find_book('')

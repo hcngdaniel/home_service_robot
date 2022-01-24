@@ -24,7 +24,7 @@ def callback(session):
 
 
 assistant = nlu.Assistant()
-assistant.set_dataset(nlu.Dataset().from_yaml("../NLU_files/test.yaml"))
+assistant.set_dataset(nlu.Dataset().from_yaml("../NLU_files/dataset.yaml"))
 assistant.save("asdf.tar")
 print("ready")
 for i in range(1000000):

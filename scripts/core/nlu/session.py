@@ -12,9 +12,9 @@ class NotRequestedError(Exception):
 class Session:
     def __init__(self, assistant) -> None:
         self.assistant = assistant
-        self.parse_result: typing.Dict = None
+        self.parse_result: typing.Union[typing.Dict, None] = None
 
-    def set_slot(self, slot_name: typing.AnyStr, value: typing.AnyStr, callback: typing.Callable = None) -> typing.Dict:
+    def set_slot(self, slot_name: typing.AnyStr, value: typing.AnyStr, callback: typing.Callable = None):
         if len(value.strip().split(" ")) == 1:
             value = " ".join(random.choices(random_dict, k=3)) + " " + value
         if self.parse_result is None:
@@ -33,7 +33,7 @@ class Session:
     def __find_entity_by_slot_name(self, slot_name) -> typing.AnyStr:
         return self.expected_intent.slot_mapping[slot_name]
 
-    def request(self, text: typing.AnyStr, callback: typing.Callable = None) -> typing.Dict:
+    def request(self, text: typing.AnyStr, callback: typing.Callable = None):
         self.parse_result = self.assistant.nlu.parse(text)
         if callable(callback):
             callback(self)

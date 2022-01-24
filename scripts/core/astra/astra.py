@@ -5,6 +5,7 @@ import rospy
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 import numpy as np
+import typing
 
 
 class Astra:
@@ -33,14 +34,15 @@ class Astra:
             return self.__depth_img
         return np.zeros((480, 640), dtype=np.uint8)
 
-    def get_real_xyz(self, x, y, depth_img):
+    @staticmethod
+    def get_real_xyz(x, y, depth_img) -> typing.Tuple[float, float, float]:
         depth = depth_img[y][x]
         horiz_len = 2 * np.tan(np.deg2rad(60))
         vert_len = 2 * np.tan(np.deg2rad(49.5))
         rz = float(depth)
         rx = float((x - 320) / 640 * horiz_len)
         ry = float((y - 240) / 480 * vert_len)
-        return (rx, ry, rz)
+        return rx, ry, rz
 
     def get_euclidean_distance(self, x, y, depth_img):
         rx, ry, rz = self.get_real_xyz(x, y, depth_img)

@@ -6,6 +6,7 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 import numpy as np
 import typing
+from .. import utils
 
 
 class Astra:
@@ -46,11 +47,7 @@ class Astra:
 
     def get_euclidean_distance(self, x, y, depth_img):
         rx, ry, rz = self.get_real_xyz(x, y, depth_img)
-        sys.path.append(f'{os.path.dirname(__file__)}/..')
-        from utils import utils
         distance = utils.distance((rx, ry, rz), (0, 0, 0))
-        del utils
-        sys.path.pop()
         return distance
     
     def __call__(self):

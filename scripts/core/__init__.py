@@ -8,3 +8,4 @@ from .kobuki.kobuki import Kobuki
 from .nlu import nlu
 from .QRCode.QRCode_decoder import QRCodeDecoder
 from .utils import utils
+from .neural_networks import neural_networks

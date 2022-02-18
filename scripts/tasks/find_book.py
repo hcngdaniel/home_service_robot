@@ -18,11 +18,12 @@ if __name__ == '__main__':
 astra = core.Astra()
 navigation = core.Navigation()
 respeaker = core.Respeaker()
-assistant = core.nlu.Assistant.boo(f'{os.path.dirname(__file__)}/assistant.assistant')
+assistant = core.nlu.Assistant.load(f'{os.path.dirname(__file__)}/assistant.assistant')
 tts = core.YourTTS(['/home/hcng/catkin_ws/src/home_service_robot/scripts/sample.wav'])
 
 
 def find_book(text: str):
+    pass
 
 
 if __name__ == '__main__':

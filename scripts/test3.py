@@ -7,17 +7,18 @@ import time
 
 rospy.init_node('asdf')
 rospy.loginfo('asdf node started')
-hccd = core.neural_networks.HCCD()
+net_solutions = core.neural_networks.Solution()
 
 colors = {'red': (0, 0, 255), 'yellow': (0, 255, 255), 'green': (0, 255, 0)}
 
 cap = cv2.VideoCapture(0)
+rate = rospy.Rate(20)
 while cap.isOpened():
     success, frame = cap.read()
     if not success:
         continue
-    results = hccd.process(frame)
-    for result in results:
+    results = net_solutions.process(frame, ['hccd'], rate=rate)['hccd']
+    for result in results.boxes:
         cv2.rectangle(frame, (result.left, result.top), (result.right, result.bottom), colors[result.class_name], 2)
         cv2.putText(frame, result.class_name, (result.left, result.top), cv2.FONT_HERSHEY_SIMPLEX, 1,
                     colors[result.class_name], 2)

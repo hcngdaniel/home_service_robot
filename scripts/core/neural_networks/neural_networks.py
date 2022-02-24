@@ -1,1 +1,1 @@
-from .hccd import HCCD
+from .solution import Solution

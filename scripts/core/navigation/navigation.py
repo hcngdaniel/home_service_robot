@@ -98,9 +98,8 @@ class Navigation:
         msg.header.stamp = rospy.Time.now()
         msg.header.frame_id = self.frame_id
         self.__init_pub.publish(msg)
-    
-    def move_to(self, x, y, a):
-        goal = self.point_to_pose(x, y, a)
+
+    def move_to_pose(self, goal):
         self.goal = MoveBaseGoal()
         self.goal.target_pose.header.frame_id = self.frame_id
         self.goal.target_pose.header.stamp = rospy.Time.now()
@@ -113,3 +112,7 @@ class Navigation:
         else:
             rospy.loginfo("Failed to reach point")
         return success
+    
+    def move_to(self, x, y, a):
+        goal = self.point_to_pose(x, y, a)
+        self.move_to_pose(goal)

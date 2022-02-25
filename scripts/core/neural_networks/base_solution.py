@@ -5,6 +5,7 @@ import typing
 
 class BaseSolution(ABC):
     def __init__(self):
+        self.name: str = ""
         self.result = None
         self.result_topic: typing.AnyStr = ""
 

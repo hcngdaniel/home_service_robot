@@ -5,19 +5,14 @@ from neural_networks.msg import BoundingBoxes
 from .base_solution import BaseSolution
 
 
-class HCCD(BaseSolution):
-
-    CLASSES = [
-        'red',
-        'yellow',
-        'green'
-    ]
+class Yolov5(BaseSolution):
 
     def __init__(self):
-        super(HCCD, self).__init__()
-        self.name = 'hccd'
-        self.result_topic = '/neural_networks/results/hccd'
+        super(Yolov5, self).__init__()
+        self.name = 'yolov5'
+        self.result_topic = '/neural_networks/results/yolov5'
         rospy.Subscriber(self.result_topic, BoundingBoxes, callback=self.__callback__)
 
     def __callback__(self, msg):
         self.result = msg
+

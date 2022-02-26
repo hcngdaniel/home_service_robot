@@ -29,7 +29,7 @@ class Astra:
         if self.__bgr_img is not None:
             return self.__bgr_img
         return np.zeros((480, 640, 3), dtype=np.uint8)
-    
+
     def read_depth(self):
         if self.__depth_img is not None:
             return self.__depth_img
@@ -55,5 +55,5 @@ class Astra:
                 "depth": self.read_depth}
     
     def __str__(self) -> str:
-        return self.read_rgb + "\n" + self.read_depth
+        return self.read_rgb() + "\n" + self.read_depth
 

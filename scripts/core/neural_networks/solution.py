@@ -9,7 +9,8 @@ from sensor_msgs.msg import Image
 class Solution:
 
     MODEL_NAMES = [
-        'hccd'
+        'hccd',
+        'yolov5'
     ]
 
     def __init__(self):
@@ -33,5 +34,4 @@ class Solution:
                         results_dict[model.name] = model.result
             if None not in results_dict.values():
                 break
-        print(results_dict)
         return results_dict

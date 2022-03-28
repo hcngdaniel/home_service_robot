@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import rospy
-from open_manipulator_msgs.srv import SetKinematicsPose, SetKinematicsPoseRequest, SetJointPosition
+from open_manipulator_msgs.srv import SetKinematicsPose, SetKinematicsPoseRequest, SetJointPosition, SetJointPositionRequest
 from open_manipulator_msgs.msg import KinematicsPose
 import time
 
@@ -55,11 +55,12 @@ class Manipulator:
         rospy.wait_for_service(self.goal_control_service)
         try:
             service_proxy = rospy.ServiceProxy(self.goal_control_service, SetJointPosition)
-            request = SetJointPosition()
+            request = SetJointPositionRequest()
             request.joint_position.joint_name = ["gripper"]
             request.joint_position.position = [angle]
             request.path_time = t
             response = service_proxy(request)
+            time.sleep(t)
             return response
         except Exception as e:
             return e

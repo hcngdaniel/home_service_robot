@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 import rospy
-from open_manipulator_msgs.srv import SetKinematicsPose, SetKinematicsPoseRequest
+from open_manipulator_msgs.srv import SetKinematicsPose, SetKinematicsPoseRequest, SetJointPosition
 from open_manipulator_msgs.msg import KinematicsPose
 import time
 
 
 class Manipulator:
-    def __init__(self, move_service="/goal_task_space_path_position_only", xyz_topic="/gripper/kinematics_pose"):
+    def __init__(self, move_service="/goal_task_space_path_position_only", xyz_topic="/gripper/kinematics_pose", goal_control_service="/goal_tool_control"):
         self.move_service = move_service
         self.xyz_topic = xyz_topic
+        self.goal_control_service = goal_control_service
         rospy.Subscriber(self.xyz_topic, KinematicsPose, callback=self.__xyz_callback)
         first_msg = rospy.wait_for_message(self.xyz_topic, KinematicsPose)
         self.x = first_msg.pose.position.x
@@ -36,9 +37,9 @@ class Manipulator:
         return response
     
     def get_xyz(self):
-        return (self.x, self.y, self.z)
+        return self.x, self.y, self.z
         
-    def move_to(self, x, y, z, t, slices=10):
+    def move_to(self, x, y, z, t, slices=1):
         x1, y1, z1 = self.get_xyz()
         x2, y2, z2 = x, y, z
         fy = lambda x: (y1 - y2) / (x1 - x2) * x + (y1 - (y1 - y2) / (x1 - x2) * x1)
@@ -47,6 +48,24 @@ class Manipulator:
             goal_x = x1 + (x2 - x1) / slices * (i + 1)
             goal_y, goal_z = fy(goal_x), fz(goal_x)
             goal_x, goal_y, goal_z = round(goal_x, 3), round(goal_y, 3), round(goal_z, 3)
-            rospy.loginfo(self.move_directly_to(goal_x, goal_y, goal_z, t / slices, delay=0))
+            self.move_directly_to(goal_x, goal_y, goal_z, t / slices, delay=0)
         return True
 
+    def set_gripper(self, angle, t):
+        rospy.wait_for_service(self.goal_control_service)
+        try:
+            service_proxy = rospy.ServiceProxy(self.goal_control_service, SetJointPosition)
+            request = SetJointPosition()
+            request.joint_position.joint_name = ["gripper"]
+            request.joint_position.position = [angle]
+            request.path_time = t
+            response = service_proxy(request)
+            return response
+        except Exception as e:
+            return e
+
+    def open_gripper(self, t):
+        return self.set_gripper(0.01, t)
+
+    def close_gripper(self, t):
+        return self.set_gripper(-0.01, t)

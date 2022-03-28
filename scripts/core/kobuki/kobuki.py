@@ -12,7 +12,7 @@ class Kobuki:
         self.cmd_vel_topic: typing.AnyStr = '/mobile_base/commands/velocity'
         self.imu_topic: typing.AnyStr = '/mobile_base/sensors/imu_data'
         rospy.Subscriber(self.imu_topic, Imu, callback=self.__imu_callback)
-        self.__cmd_vel_pub = rospy.Publisher(self.cmd_vel_topic, Twist)
+        self.__cmd_vel_pub = rospy.Publisher(self.cmd_vel_topic, Twist, queue_size=10)
         self.imu_data: typing.Union[None, Imu] = None
 
     def __imu_callback(self, data):

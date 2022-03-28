@@ -9,6 +9,7 @@ rospy.init_node('asdf')
 rospy.loginfo('asdf node started')
 hccd_solution = core.neural_networks.HCCD()
 yolo_solution = core.neural_networks.Yolov5()
+fasterrcnn_solution = core.neural_networks.FasterRCNN()
 net_solutions = core.neural_networks.Solution()
 
 colors = {'red': (0, 0, 255), 'yellow': (0, 255, 255), 'green': (0, 255, 0)}

@@ -10,11 +10,12 @@ class Solution:
 
     MODEL_NAMES = [
         'hccd',
-        'yolov5'
+        'yolov5',
+        'fasterrcnn'
     ]
 
     def __init__(self):
-        self.img_pub = rospy.Publisher('neural_networks/image', Image, queue_size=10)
+        self.img_pub = rospy.Publisher('/neural_networks/image', Image, queue_size=10)
         self.bridge = CvBridge()
 
     def process(self, img, models, img_encoding = 'bgr8', rate: rospy.Rate = None):

@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 import rospy
+import time
 from cv_bridge import CvBridge
 import uuid
+import warnings
 
 from sensor_msgs.msg import Image
 
@@ -28,6 +30,7 @@ class Solution:
         self.img_pub.publish(imgmsg)
         results_dict = {key: None for key in model_names}
 
+        start_time = time.time()
         while not rospy.is_shutdown():
             rate.sleep()
             for model in models:
@@ -36,4 +39,7 @@ class Solution:
                         results_dict[model.name] = model.result
             if None not in results_dict.values():
                 break
+            if time.time() - start_time > 0.1:
+                warnings.warn("Request Timeout")
+                return
         return results_dict

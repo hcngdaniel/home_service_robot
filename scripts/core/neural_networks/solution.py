@@ -11,7 +11,8 @@ class Solution:
     MODEL_NAMES = [
         'hccd',
         'yolov5',
-        'fasterrcnn'
+        'fasterrcnn',
+        "human_pose"
     ]
 
     def __init__(self):

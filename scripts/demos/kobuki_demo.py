@@ -6,8 +6,6 @@ import core
 
 rospy.init_node("turtlebot_demo")
 kobuki = core.Kobuki()
-kobuki.cmd_vel_topic = "/mobile_base/commands/velocity"
-kobuki.imu_topic = "/mobile_base/sensors/imu_data_raw"
 rospy.Rate(1).sleep()
 
 start_time = time.time()

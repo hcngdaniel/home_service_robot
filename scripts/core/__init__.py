@@ -7,5 +7,4 @@ from .YourTTS.YourTTS import YourTTS
 from .kobuki.kobuki import Kobuki
 from .nlu import nlu
 from core.utils.QRCode_decoder import QRCodeDecoder
-from .utils import utils
 from .neural_networks import neural_networks

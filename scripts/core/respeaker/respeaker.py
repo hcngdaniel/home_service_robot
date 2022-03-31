@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import rospy
+import copy
 from std_msgs.msg import String
 from mr_voice.msg import Voice
 
@@ -15,27 +16,28 @@ class Respeaker:
         rospy.Subscriber(self.voice_topic, Voice, callback=self.__text_callback)
         rospy.Subscriber(self.audio_path_topic, String, callback=self.__audio_path_callback)
         
-        self.voice = [Voice(), ""]
+        self.voice = Voice()
+        self.audio_path = String()
 
     def __text_callback(self, msg):
-        self.voice[0] = msg
+        self.voice = msg
 
     def __audio_path_callback(self, msg):
-        self.voice[1] = msg
+        self.audio_path = msg
 
     def get_voice(self):
-        voice = self.voice[0]
-        self.voice = [Voice(), ""]
+        voice = copy.deepcopy(self.voice)
+        self.voice = Voice()
         return voice
 
     def get_text(self):
-        text = self.voice[0].text
-        self.voice = [Voice(), ""]
+        text = copy.deepcopy(self.voice.text)
+        self.voice = Voice()
         return text
 
     def get_path(self):
-        path = self.voice[1]
-        self.voice = [Voice(), ""]
+        path = self.audio_path
+        self.audio_path = String()
         return path
     
     def say(self, text):
@@ -51,5 +53,5 @@ if __name__ == "__main__":
         text = respeaker.get_text()
         if text != "":
             print(repr(text))
-        rospy.Rate(20).sleep() # very important
+        rospy.Rate(20).sleep()  # very important
 

@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
+import rospy
 import core
 
 
+rospy.init_node("assistant_with_respeaker_demo")
+respeaker = core.Respeaker()
 tts = core.YourTTS("Kinda.wav")
 
 
@@ -30,5 +33,9 @@ assistant = core.nlu.Assistant()
 assistant.set_dataset(core.nlu.Dataset().from_yaml("core/nlu/example_dataset.yaml"))
 assistant.save("asdf.tar")
 print("ready")
-for i in range(1000000):
-    assistant.session.request(input(), callback=callback)
+while not rospy.is_shutdown():
+    text = respeaker.get_text()
+    if text != "":
+        print(text)
+        assistant.session.request(text, callback=callback)
+    rospy.Rate(20).sleep()

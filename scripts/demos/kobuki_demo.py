@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import rospy
+import time
 import core
 
 
@@ -9,10 +10,10 @@ kobuki.cmd_vel_topic = "/mobile_base/commands/velocity"
 kobuki.imu_topic = "/mobile_base/sensors/imu_data_raw"
 rospy.Rate(1).sleep()
 
-# while not rospy.is_shutdown():
-for i in range(1000000):
-    kobuki.move(0.05, 0)
+start_time = time.time()
+while not rospy.is_shutdown():
+    kobuki.move(0.1, 0)
     rospy.Rate(100).sleep()
-# rospy.Rate(1).sleep()
-# kobuki.move(0, 0)
-
+    if time.time() - start_time > 1.5:
+        break
+kobuki.move(0, 0)

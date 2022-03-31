@@ -4,16 +4,14 @@ import core
 import cv2
 
 
-tts = core.YourTTS('sample.wav')
-tts.say("Hello, I am a respeaker")
-
-
 rospy.init_node("test2")
 astra = core.Astra()
 
 while not rospy.is_shutdown():
+    rgb_img = astra.read_rgb()
     depth_img = astra.read_depth()
-    cv2.imshow("frame", depth_img)
+    cv2.imshow("rgb", rgb_img)
+    cv2.imshow("depth", depth_img)
     if cv2.waitKey(16) in [27, ord('q')]:
         break
     print(astra.get_euclidean_distance(320, 240, depth_img))

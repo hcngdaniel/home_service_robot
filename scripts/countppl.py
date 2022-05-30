@@ -52,7 +52,7 @@ if __name__ == "__main__":
                 cx = (xmin + xmax) // 2
                 cy = (ymin + ymax) // 2
                 
-                cv2.circle(frame, (cx, cy), 5, (0, 0, 255), -1)
+                cv2.circle(frame, (cx, cy), 5, (0, 0, 0), -1)
                 cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 0, 255), 2)
                 
                 
@@ -65,13 +65,15 @@ if __name__ == "__main__":
                     library_person_count -= 1
                 
                 if library_person_count <= 0: library_person_count = 0
+                
+                cv2.rectangle(frame, (0, 0), (400, 80), (0, 0, 0), -1)
                 cv2.putText(
                     frame, 
                     'Person Count: %d' % library_person_count, 
                     (50, 50),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     1,
-                    (255, 0, 0),
+                    (255, 255, 255),
                     2
                 
                 )

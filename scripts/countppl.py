@@ -27,6 +27,8 @@ if __name__ == "__main__":
     
     library_person_count = 0
     
+    last_mid = [0, 0]
+    
     while not rospy.is_shutdown():
         rospy.Rate(20).sleep()
         
@@ -37,8 +39,14 @@ if __name__ == "__main__":
         classes = []
         frame = _frame.copy()
         
+        
+        
+        cv2.line(frame, (640 // 3, 0), (640 // 3, 480), (250, 0, 0), 1)
+        cv2.line(frame, (640 // 3 * 2, 0), (640 // 3 * 2, 480), (250, 0, 0), 1)
+        
         for box in _boxes:
             if box.Class == "person":
+                coordinates = []
                 xmin, xmax = box.xmin, box.xmax
                 ymin, ymax = box.ymin, box.ymax
                 cx = (xmin + xmax) // 2
@@ -47,17 +55,36 @@ if __name__ == "__main__":
                 cv2.circle(frame, (cx, cy), 5, (0, 0, 255), -1)
                 cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 0, 255), 2)
                 
-                rospy.loginfo("Person Coordinates:")
-                rospy.loginfo("XMin: %d, XMax: %d" % (xmin, xmax))
-                rospy.loginfo("YMin: %d, YMax: %d" % (ymin, ymax))
-                rospy.loginfo("-------------------")
+                
+                rospy.loginfo(last_mid)
+                
+                
+                if last_mid[0] < (640 // 3) and cx > (640 // 3):
+                    library_person_count += 1
+                if last_mid[0] > (640 // 3 * 2) and cx < (640 // 3 * 2):
+                    library_person_count -= 1
+                
+                if library_person_count <= 0: library_person_count = 0
+                cv2.putText(
+                    frame, 
+                    'Person Count: %d' % library_person_count, 
+                    (50, 50),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    1,
+                    (255, 0, 0),
+                    2
+                
+                )
+                
+                last_mid = [cx, cy]
                 
             classes.append(box.Class)
             
             
         cv2.imshow("Frame", frame)
         cv2.waitKey(1)
-        rospy.loginfo("Person Count:  %d" % classes.count("person"))    
+        rospy.loginfo("Person Count:  %d" % classes.count("person")) 
+        
         
             
     rospy.loginfo("Count Node End!")

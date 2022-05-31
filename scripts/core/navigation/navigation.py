@@ -4,7 +4,7 @@ import actionlib
 import time
 from geometry_msgs.msg import Pose, PoseWithCovarianceStamped, Quaternion, PointStamped, PoseStamped
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
-from tf.transformations import quaternion_from_euler
+from tf.transformations import quaternion_from_euler, euler_from_quaternion
 from actionlib_msgs.msg import GoalStatusArray
 
 
@@ -28,8 +28,7 @@ class Navigation:
         self.status_text = ""
         
         rospy.on_shutdown(self.shutdown)
-        
-        rospy.Subscriber("/initialpose", PoseWithCovarianceStamped, callback=self.__initial_pose_callback)
+
         rospy.Subscriber("/amcl_pose", PoseWithCovarianceStamped, callback=self.__amcl_pose_callback)
         rospy.Subscriber("/clicked_point", PointStamped, callback=self.__clicked_point_callback)
         rospy.Subscriber("/move_base_simple/goal", PoseStamped, callback=self.__goal_callback)
@@ -39,9 +38,6 @@ class Navigation:
     
     def shutdown(self):
         self.move_base.cancel_goal()
-    
-    def __initial_pose_callback(self, msg):
-        self.init_pose = msg
     
     def __amcl_pose_callback(self, msg):
         self.current_pose = msg
@@ -83,13 +79,38 @@ class Navigation:
         time.sleep(1)
         return self.last_goal_pose.header.stamp != ""
 
-    def point_to_pose(self, x, y, a):
+    @classmethod
+    def point_to_pose(cls, x, y, a):
         pose = Pose()
         q = quaternion_from_euler(0.0, 0.0, a)
         q = Quaternion(q[0], q[1], q[2], q[3])
         pose.position.x = x
         pose.position.y = y
         pose.orientation = q
+        return pose
+
+    @classmethod
+    def pose_to_point(cls, pose: Pose):
+        x, y = pose.position.x, pose.position.y
+        _, _, a = euler_from_quaternion(
+            [pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w])
+        return x, y, a
+
+    @classmethod
+    def zw_to_a(cls, z, w):
+        _, _, a = euler_from_quaternion([0, 0, z, w])
+        return a
+
+    @classmethod
+    def Pose(cls, x, y, z, rx, ry, rz, rw):
+        pose = Pose()
+        pose.position.x = x
+        pose.position.y = y
+        pose.position.z = z
+        pose.orientation.x = rx
+        pose.orientation.y = ry
+        pose.orientation.z = rz
+        pose.orientation.w = rw
         return pose
     
     def set_init_pose(self, x, y, a):
@@ -107,12 +128,18 @@ class Navigation:
         self.move_base.send_goal(self.goal)
         time.sleep(1)
         success = self.move_base.wait_for_result(rospy.Duration(300))
-        if success == 1:
-            rospy.loginfo("Reached point")
-        else:
-            rospy.loginfo("Failed to reach point")
         return success
     
     def move_to(self, x, y, a):
         goal = self.point_to_pose(x, y, a)
         self.move_to_pose(goal)
+        while not rospy.is_shutdown():
+            if self.status_code == 0:
+                pass
+            if self.status_code == 1:
+                pass
+            if self.status_code == 3:
+                break
+            if self.status_code == 4:
+                pass
+            rospy.Rate(20).sleep()

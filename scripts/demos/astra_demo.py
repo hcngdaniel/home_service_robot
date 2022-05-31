@@ -5,13 +5,17 @@ import cv2
 
 
 rospy.init_node("test2")
-astra = core.Astra()
+astra_top = core.Astra("CAM_UP")
+astra_down = core.Astra("CAM_DOWN")
 
 while not rospy.is_shutdown():
-    rgb_img = astra.read_rgb()
-    depth_img = astra.read_depth()
-    cv2.imshow("rgb", rgb_img)
-    cv2.imshow("depth", depth_img)
+    rgb_img = astra_top.read_rgb()
+    depth_img = astra_top.read_depth()
+    cv2.imshow("top_rgb", rgb_img)
+    cv2.imshow("top_depth", depth_img)
+    rgb_img = astra_down.read_rgb()
+    depth_img = astra_down.read_depth()
+    cv2.imshow("down_rgb", rgb_img)
+    cv2.imshow("down_depth", depth_img)
     if cv2.waitKey(16) in [27, ord('q')]:
         break
-    print(astra.get_euclidean_distance(320, 240, depth_img))

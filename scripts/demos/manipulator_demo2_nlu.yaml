@@ -1,0 +1,39 @@
+---
+type: intent
+name: help
+utterances:
+  - please help me to take this box
+  - help me to take this box
+  - take this box please
+  - take this
+  - take this pencil case
+  - take this bag
+  - help me to take this
+---
+type: intent
+name: thank
+utterances:
+  - thank you
+  - thanks
+  - thank
+---
+type: intent
+name: open
+utterances:
+  - please open your grippers
+  - open your grippers
+  - open you hand
+  - open your clippers
+  - open your thing
+  - open your dick
+  - open your dude
+---
+type: intent
+name: close
+utterances:
+  - close your grippers
+  - please close your grippers
+  - close hand
+  - close clippers
+  - close it
+  - close please

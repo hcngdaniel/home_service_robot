@@ -1,0 +1,45 @@
+# hi intent
+---
+type: intent
+name: hi
+respond:
+  - type: say
+    texts:
+      - Hi!
+      - Hello!
+
+# findBook intent
+---
+type: intent
+name: findBook
+slots:
+  - name: book
+    missing_slot_respond:
+      - type: say
+        texts:
+          - Okay, but which book do you want to find?
+respond:
+  - type: say
+    texts:
+      - Okay, I will find the book [book] for you. Please come with me.
+
+# returnBook intent
+---
+type: intent
+name: returnBook
+slots:
+  - name: book
+    optional: true
+respond:
+  - type: say
+    texts:
+      - Okay, I will help you to return the book [book]. Please give the book to me.
+      - Okay, I will help you to return the book. Please give the book to me.
+
+# respond when cannot understand
+---
+type: cannot_understand
+respond:
+  - type: say
+    texts:
+      - Sorry, I cannot understand.

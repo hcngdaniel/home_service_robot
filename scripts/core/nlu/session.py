@@ -22,7 +22,7 @@ class Session:
         try:
             slot = self.assistant.nlu.engine.get_slots(text=value, intent="ENTITY" + self.__find_entity_by_slot_name(slot_name))[0]
         except:
-            raise ValueError("cannot regonize value")
+            raise ValueError("cannot recognize value")
         slot["range"]["start"], slot["range"]["end"] = float("nan"), float("nan")
         slot["slotName"] = slot_name
         self.parse_result["slots"].append(slot)

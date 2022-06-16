@@ -1,0 +1,59 @@
+# hi intent
+---
+type: intent
+name: hi
+utterances:
+  - Hi!
+  - Hello!
+
+# ok intent
+---
+type: intent
+name: ok
+utterances:
+  - Okay!
+  - OK!
+
+# thanks intent
+---
+type: intent
+name: thanks
+utterances:
+  - Thanks!
+  - Thank you!
+
+# findBook intent
+---
+type: intent
+name: findBook
+slots:
+  - name: book
+    entity: book
+utterances:
+  - Can you help me find the book [book](Harry Potter)?
+  - Please help me find the book [book](Frankenstein).
+
+# returnBook intent
+---
+type: intent
+name: returnBook
+slots:
+  - name: book
+    entity: book
+utterances:
+  - Can you help me return the book [book](Harry Potter)?
+  - Please help me return the book [book](Frankenstein).
+
+# book entity
+---
+type: entity
+name: book
+automatically_extensible: no
+values:
+  - Harry Potter
+  - Frankenstein
+  - Around the World in Eighty Days
+  - The Three Little Pigs
+  - Charlie and the Chocolate Factory
+  - Charlie and the Great Glass Elevator
+  - The Bible

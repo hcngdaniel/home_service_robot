@@ -5,6 +5,7 @@ from sensor_msgs.msg import Image
 import cv2
 import torch
 from pytorch_models import *
+from std_msgs.msg import Int32
 
 def callback_image(msg):
     global _frame
@@ -42,6 +43,9 @@ if __name__ == "__main__":
     
     people_count = 0
     last_frame = []
+    
+    pub_frame = rospy.Publisher("frame_for_person_count", Image, queue_size=10)
+    pub_count = rospy.Publisher("personcnt", Int32, queue_size=10)
     
     while not rospy.is_shutdown():
         rospy.Rate(20).sleep()
@@ -85,6 +89,8 @@ if __name__ == "__main__":
                 if people_count < 0: people_count = 0                
                 previous_x = cx
         cv2.putText(frame, str(people_count), (100, 100), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 255), 3)
+        pub_frame.publish(CvBridge().cv2_to_imgmsg(frame, "bgr8"))
+        pub_count.publish(people_count)
             
         
         cv2.imshow("frame", frame)

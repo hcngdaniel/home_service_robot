@@ -1,0 +1,37 @@
+# turnLightOn intent
+---
+type: intent
+name: turnLightOn
+slots:
+  - name: room
+    missing_slot_respond:
+      - type: say
+        texts:
+          - Which room?
+respond:
+  - type: say
+    texts:
+      - Okay, I will turn on the lights in [room].
+
+# turnLightOff intent
+---
+type: intent
+name: turnLightOff
+slots:
+  - name: room
+    missing_slot_respond:
+      - type: say
+        texts:
+          - Which room?
+respond:
+  - type: say
+    texts:
+      - Okay, I will turn off the lights in [room].
+
+# respond when cannot understand
+---
+type: cannot_understand
+respond:
+  - type: say
+    texts:
+      - Sorry, I cannot understand.

@@ -39,7 +39,7 @@ class Solution:
                         results_dict[model.name] = model.result
             if None not in results_dict.values():
                 break
-            if time.time() - start_time > 0.5:
+            if time.time() - start_time > 1.0:
                 warnings.warn("Request Timeout")
                 return
         return results_dict

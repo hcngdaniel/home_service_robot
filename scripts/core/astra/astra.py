@@ -1,4 +1,4 @@
-#!usr/bin/env python3
+#!/usr/bin/env python3
 import os
 import sys
 import cv2
@@ -16,7 +16,7 @@ class Astra:
         self.compressed = compressed
         self.__bgr_img = None
         self.__depth_img = None
-        rospy.Subscriber(self.ns + "/depth/image_raw", Image, callback=self.__depth_img_callback)
+        # rospy.Subscriber(self.ns + "/depth/image_raw", Image, callback=self.__depth_img_callback)
         if not compressed:
             rospy.Subscriber(self.ns + "/rgb/image_raw", Image, callback=self.__rgb_img_callback)
         else:

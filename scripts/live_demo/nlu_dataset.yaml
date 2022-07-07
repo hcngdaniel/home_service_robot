@@ -1,0 +1,73 @@
+---
+type: intent
+name: recommendBook
+utterances:
+  - Robot, can you recommend some books to me?
+  - please give me some advice on books
+  - what book should I choose?
+  - I don't know what book to read
+---
+type: intent
+name: bringMeToBook
+slots:
+  - name: book
+    entity: book
+utterances:
+  - I don't know where is [book](A Game Of Thrones), can you bring me to there?
+  - Can you bring me to [book](Jonathan Strange)?
+  - where is [book](The Name of the Wind)?
+---
+type: entity
+name: book
+automatically_extensible: no
+values:
+  - A Game Of Thrones
+  - The Colour Of Magic
+  - The Lord of the Rings
+  - Jonathan Strange
+  - The Name of the Wind
+  - The Lies of Locke Lamora
+  - American Gods
+  - The Fifth Season
+  - The Earthsea Quartet
+  - Assassin's Apprentice
+  - The Whistler
+  - The Da Vinci Code
+  - The Woman in White
+  - The Eye of the Beholder
+  - Sneaky People
+  - A Simple Plan
+  - And Then There Were None
+  - The Daughter of Time
+  - In Cold Blood
+  - Tales of Mystery & Imagination
+  - Pride and Prejudice
+  - Wuthering Heights
+  - Jane Eyre
+  - Anna Karenina
+  - Gone With the Wind
+  - Doctor Zhivago
+  - Love Story
+  - Outlander
+  - The Notebook
+  - The Time Traveler's Wife
+  - Dune
+  - Neuromancer
+  - The Time Machine
+  - Hyperion
+  - The Left Hand of Darkness
+  - The Forever War
+  - The Stars My Destination
+  - The Foundation Trilogy
+  - The Book of the New Sun
+  - The Blazing World
+  - The Maidens
+  - Sharp Objects
+  - Strangers on a Train
+  - My Sister, the Serial Killer
+  - Long Bright River
+  - Your House Will Pay
+  - Shutter Island
+  - Those Bones Are Not My Child
+  - Out
+  - Rebecca

@@ -1,0 +1,75 @@
+Fantasy: 37
+SciFi: 1
+Mystery: 4
+Thriller: 0
+Romance: 21
+read:
+  # Fantasy
+  - alice in wonderland
+  - harry potter and the sorcer's stone
+  - harry potter and the chamber of secrets
+  - harry potter and the prisoner of azkaban
+  - harry potter and the goblet of fire
+  - harry potter and the order of the pheonix
+  - harry potter and the half blood prince
+  - harry potter and the deathly hallows
+  - the hobbit
+  - the fellowship of the ring
+  - the two towers
+  - the return of the king
+  - the hunger games
+  - catching fire
+  - mockingjay
+  - the big friendly giant
+  - charlie and the chocolate factory
+  - charlie and the great glass elevator
+  - howl's moving castle
+  - the little prince
+  - a game of thrones
+  - geronimo stilton's kingdom of fantasy series
+  - a song of fire and ice
+  - aclash of kings
+  - a storm of swords
+  - a feast for crows
+  - a dance with dragons
+  - percy jackson and the lightning thief
+  - percy jackson and the sea of monsters
+  - percy jackson and the titan's curse
+  - percy jackson and the battle of the labyrnith
+  - percy jackson and the last olympian
+  - the loss hero
+  - the son of neptune
+  - the mark of athena
+  - the house of hades
+  - the blood of olympus
+  - twilight
+  # SciFi
+  - the three body problem
+  # Mystery
+  - deadly cross
+  - daylight
+  - the sentinel
+  - a time for mercy
+  # Romantic
+  - Beautiful World, Where Are You
+  - A Lot Like Adias A Novel
+  - Dead Collections A Novel
+  - The Proposal
+  - Seven Days in June
+  - The Hating Game
+  - Vision In White
+  - Violeta
+  - The Thorn Birds
+  - Pride and Prejudice
+  - Outlander
+  - Delta of Venus
+  - Call Me by Your Name
+  - Bared to You
+  - The Time Traveler's Wife
+  - Eleanor & Park
+  - A Certain Appeal
+  - Jane Eyre
+  - Love at First
+  - The Notebook
+  - One Last Stop
+  - Honey Girl

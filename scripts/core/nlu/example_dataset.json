@@ -1,0 +1,237 @@
+{
+    "language": "en",
+    "intents": {
+        "turnLightOn": {
+            "utterances": [
+                {
+                    "data": [
+                        {
+                            "text": "Turn on the lights in the "
+                        },
+                        {
+                            "text": "kitchen",
+                            "slot_name": "room",
+                            "entity": "room"
+                        }
+                    ]
+                },
+                {
+                    "data": [
+                        {
+                            "text": "give me some light in the "
+                        },
+                        {
+                            "text": "bathroom",
+                            "slot_name": "room",
+                            "entity": "room"
+                        },
+                        {
+                            "text": " please"
+                        }
+                    ]
+                },
+                {
+                    "data": [
+                        {
+                            "text": "Can you light up the "
+                        },
+                        {
+                            "text": "living room",
+                            "slot_name": "room",
+                            "entity": "room"
+                        },
+                        {
+                            "text": " ?"
+                        }
+                    ]
+                },
+                {
+                    "data": [
+                        {
+                            "text": "switch the "
+                        },
+                        {
+                            "text": "bedroom",
+                            "slot_name": "room",
+                            "entity": "room"
+                        },
+                        {
+                            "text": "'s lights on please"
+                        }
+                    ]
+                }
+            ]
+        },
+        "turnLightOff": {
+            "utterances": [
+                {
+                    "data": [
+                        {
+                            "text": "Turn off the lights in the "
+                        },
+                        {
+                            "text": "entrance",
+                            "slot_name": "room",
+                            "entity": "room"
+                        }
+                    ]
+                },
+                {
+                    "data": [
+                        {
+                            "text": "turn the "
+                        },
+                        {
+                            "text": "bathroom",
+                            "slot_name": "room",
+                            "entity": "room"
+                        },
+                        {
+                            "text": "'s light out please"
+                        }
+                    ]
+                },
+                {
+                    "data": [
+                        {
+                            "text": "switch off the light the "
+                        },
+                        {
+                            "text": "kitchen",
+                            "slot_name": "room",
+                            "entity": "room"
+                        },
+                        {
+                            "text": ", will you?"
+                        }
+                    ]
+                },
+                {
+                    "data": [
+                        {
+                            "text": "Switch the "
+                        },
+                        {
+                            "text": "bedroom",
+                            "slot_name": "room",
+                            "entity": "room"
+                        },
+                        {
+                            "text": "'s lights off please"
+                        }
+                    ]
+                }
+            ]
+        },
+        "setTemperature": {
+            "utterances": [
+                {
+                    "data": [
+                        {
+                            "text": "Set the temperature to "
+                        },
+                        {
+                            "text": "19 degrees",
+                            "slot_name": "roomTemperature",
+                            "entity": "snips/temperature"
+                        },
+                        {
+                            "text": " in the "
+                        },
+                        {
+                            "text": "bedroom",
+                            "slot_name": "room",
+                            "entity": "room"
+                        }
+                    ]
+                },
+                {
+                    "data": [
+                        {
+                            "text": "please set the "
+                        },
+                        {
+                            "text": "living room",
+                            "slot_name": "room",
+                            "entity": "room"
+                        },
+                        {
+                            "text": "'s temperature to "
+                        },
+                        {
+                            "text": "twenty two degrees celsius",
+                            "slot_name": "roomTemperature",
+                            "entity": "snips/temperature"
+                        }
+                    ]
+                },
+                {
+                    "data": [
+                        {
+                            "text": "I want "
+                        },
+                        {
+                            "text": "75 degrees fahrenheit",
+                            "slot_name": "roomTemperature",
+                            "entity": "snips/temperature"
+                        },
+                        {
+                            "text": " in the "
+                        },
+                        {
+                            "text": "bathroom",
+                            "slot_name": "room",
+                            "entity": "room"
+                        },
+                        {
+                            "text": " please"
+                        }
+                    ]
+                },
+                {
+                    "data": [
+                        {
+                            "text": "Can you increase the temperature to "
+                        },
+                        {
+                            "text": "22 degrees",
+                            "slot_name": "roomTemperature",
+                            "entity": "snips/temperature"
+                        },
+                        {
+                            "text": " ?"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "entities": {
+        "room": {
+            "automatically_extensible": false,
+            "use_synonyms": true,
+            "data": [
+                {
+                    "value": "bedroom",
+                    "synonyms": []
+                },
+                {
+                    "value": "living room",
+                    "synonyms": [
+                        "main room",
+                        "lounge"
+                    ]
+                },
+                {
+                    "value": "garden",
+                    "synonyms": [
+                        "yard",
+                        "backyard"
+                    ]
+                }
+            ],
+            "matching_strictness": 1.0
+        },
+        "snips/temperature": {}
+    }
+}

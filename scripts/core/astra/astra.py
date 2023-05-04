@@ -16,7 +16,7 @@ class Astra:
         self.compressed = compressed
         self.__bgr_img = None
         self.__depth_img = None
-        # rospy.Subscriber(self.ns + "/depth/image_raw", Image, callback=self.__depth_img_callback)
+        rospy.Subscriber(self.ns + "/depth/image_raw", Image, callback=self.__depth_img_callback)
         if not compressed:
             rospy.Subscriber(self.ns + "/rgb/image_raw", Image, callback=self.__rgb_img_callback)
         else:
@@ -32,9 +32,8 @@ class Astra:
             self.__bgr_img = img
     
     def __depth_img_callback(self, msg) -> None:
-        if not self.compressed:
-            img = CvBridge().imgmsg_to_cv2(msg, "passthrough")
-            self.__depth_img = img
+        img = CvBridge().imgmsg_to_cv2(msg, "passthrough")
+        self.__depth_img = img
     
     def read_rgb(self):
         if self.__bgr_img is not None:
@@ -47,8 +46,15 @@ class Astra:
         return np.zeros((480, 640), dtype=np.uint8)
 
     @staticmethod
-    def get_real_xyz(x, y, depth_img) -> typing.Tuple[float, float, float]:
+    def get_real_xyz(x, y, depth_img, autofill=True) -> typing.Tuple[float, float, float]:
         depth = depth_img[y][x]
+        if depth == 0 and autofill:
+            r, c = np.nonzero(depth_img)
+            min_idx = ((r - x) ** 2 + (c - y) ** 2)
+            if len(min_idx):
+                min_idx = min_idx.argmin()
+                depth = depth_img[r[min_idx]][c[min_idx]]
+
         horiz_len = 2 * np.tan(np.deg2rad(30)) * depth
         vert_len = 2 * np.tan(np.deg2rad(24.75)) * depth
         rz = float(depth)

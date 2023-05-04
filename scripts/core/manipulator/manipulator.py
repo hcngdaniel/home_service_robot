@@ -6,10 +6,16 @@ import time
 
 
 class Manipulator:
-    def __init__(self, move_service="/goal_task_space_path_position_only", xyz_topic="/gripper/kinematics_pose", goal_control_service="/goal_tool_control"):
+    def __init__(self,
+                 move_service="/goal_task_space_path_position_only",
+                 xyz_topic="/gripper/kinematics_pose",
+                 goal_control_service="/goal_tool_control",
+                 joint_service="/goal_joint_space_path"
+                 ):
         self.move_service = move_service
         self.xyz_topic = xyz_topic
         self.goal_control_service = goal_control_service
+        self.joint_service=joint_service
         rospy.Subscriber(self.xyz_topic, KinematicsPose, callback=self.__xyz_callback)
         first_msg = rospy.wait_for_message(self.xyz_topic, KinematicsPose)
         self.x = first_msg.pose.position.x
@@ -64,6 +70,23 @@ class Manipulator:
             return response
         except Exception as e:
             return e
+
+    def set_joint(self, joint1=-1, joint2=-1, joint3=-1, joint4=-1, t=1):
+        rospy.wait_for_service(self.joint_service)
+        try:
+            service_proxy = rospy.ServiceProxy(self.joint_service, SetJointPosition)
+            request = SetJointPositionRequest()
+            for name, pos in zip(['joint1', 'joint2', 'joint3', 'joint4'], [joint1, joint2, joint3, joint4]):
+                if pos != -1:
+                    request.joint_position.joint_name.append(name)
+                    request.joint_position.position.append(pos)
+            request.path_time = t
+            response = service_proxy(request)
+            time.sleep(t)
+            return response
+        except Exception as e:
+            return e
+
 
     def open_gripper(self, t):
         return self.set_gripper(0.01, t)

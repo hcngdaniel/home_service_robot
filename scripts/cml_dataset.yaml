@@ -1,0 +1,67 @@
+---
+type: intent
+name: arrive
+utterances:
+  - i arrived
+  - we reached the destination
+  - we reached the car park
+  - i arrived the car park
+  - i arrived the destination
+  - i arrived the basement, please hand me my luggage
+  - we reached the car park, please hand me your luggage
+  - i arrive the car park, give me your luggage
+  - i reached the destination, put your luggage here
+  - we reached the car park, put my luggage here
+  - put your luggage here
+---
+
+type: intent
+name: goback
+utterances:
+  - go back
+  - return to the starting point
+  - go back to where you came from
+  - you can go back now
+  - return
+  - please go back
+  - please return
+  - please go to where you came from
+  - you can go back
+  - you can return to the starting point
+  - you can go back to where you came from
+  - you can you can go back now
+  - you can return
+---
+type: intent
+name: followme
+utterances:
+  - follow me
+  - please follow behind
+  - follow behind me
+  - please follow me
+  - follow me please
+  - follow behind me please
+  - go behind me please
+---
+type: intent
+name: takeluggage
+slots:
+  - name: direction
+    entity: direction
+utterances:
+  - please take the luggage on the [direction](left)
+  - please grab the luggage on the [direction](right)
+  - please get the luggage on the [direction](right)
+  - take the luggage on the [direction](right)
+  - grab the luggage on the [direction](left)
+  - get the luggage on the [direction](left)
+  - the luggage is on the [direction](left)
+  - luggage on the [direction](right)
+  - the luggage you need to take is on the [direction](right)
+---
+type: entity
+name: direction
+automatically_extensible: no
+values:
+  - left
+  - right

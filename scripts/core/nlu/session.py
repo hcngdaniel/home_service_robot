@@ -39,6 +39,14 @@ class Session:
             callback(self)
         return self
 
+    def get_slot_value(self, slot_name):
+        if self.parse_result is None:
+            raise NotRequestedError("please request first")
+        for slot in self.parse_result['slots']:
+            if slot['slotName'] == slot_name:
+                return slot['value']['value']
+        return None
+
     @property
     def intent_name(self) -> typing.AnyStr:
         if self.parse_result is None:

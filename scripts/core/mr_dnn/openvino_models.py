@@ -310,7 +310,7 @@ class FaceReidentification(IntelPreTrainedModel):
 class Yolov8():
     def __init__(self, model_name: str = None, models_dir: str = None, device_name: str = "CPU") -> None:
         if models_dir is None:
-            models_dir = "/home/hcng/models/openvino"
+            models_dir = "/home/pcms/models/openvino"
         if model_name is None:
             model_name = "yolov8n"
         # self.path = "%s/yolo/%s" % (models_dir, model_name)
@@ -348,11 +348,14 @@ class Yolov8():
 class resnet50_PAR():
     def __init__(self, model_name: str = None, models_dir: str = None, device_name: str = "CPU"):
         if models_dir is None:
-            models_dir = "/home/hcng/models/openvino/resnet50_PAR"
+            models_dir = "/home/pcms/models/openvino/resnet50_PAR"
         if model_name is None:
             model_name = "resnet50_PAR"
-        self.classes = ['personalLess30', 'personalLess45', 'personalLess60', 'personalLarger60', 'carryingBackpack', 'carryingOther', 'lowerBodyCasual', 'upperBodyCasual', 'lowerBodyFormal', 'upperBodyFormal', 'accessoryHat', 'upperBodyJacket', 'lowerBodyJeans', 'footwearLeatherShoes', 'upperBodyLogo', 'hairLong', 'personalMale', 'carryingMessengerBag', 'accessoryMuffler', 'accessoryNothing', 'carryingNothing', 'upperBodyPlaid', 'carryingPlasticBags', 'footwearSandals', 'footwearShoes', 'lowerBodyShorts', 'upperBodyShortSleeve', 'lowerBodyShortSkirt', 'footwearSneaker', 'upperBodyThinStripes', 'accessorySunglasses', 'lowerBodyTrousers', 'upperBodyTshirt', 'upperBodyOther', 'upperBodyVNeck', 'upperBodyBlack', 'upperBodyBlue', 'upperBodyBrown', 'upperBodyGreen', 'upperBodyGrey', 'upperBodyOrange', 'upperBodyPink', 'upperBodyPurple', 'upperBodyRed', 'upperBodyWhite', 'upperBodyYellow', 'lowerBodyBlack', 'lowerBodyBlue', 'lowerBodyBrown', 'lowerBodyGreen', 'lowerBodyGrey', 'lowerBodyOrange', 'lowerBodyPink', 'lowerBodyPurple', 'lowerBodyRed', 'lowerBodyWhite', 'lowerBodyYellow', 'hairBlack', 'hairBlue', 'hairBrown', 'hairGreen', 'hairGrey', 'hairOrange', 'hairPink', 'hairPurple', 'hairRed', 'hairWhite', 'hairYellow', 'footwearBlack', 'footwearBlue', 'footwearBrown', 'footwearGreen', 'footwearGrey', 'footwearOrange', 'footwearPink', 'footwearPurple', 'footwearRed', 'footwearWhite', 'footwearYellow', 'accessoryHeadphone', 'personalLess15', 'carryingBabyBuggy', 'hairBald', 'footwearBoots', 'lowerBodyCapri', 'carryingShoppingTro', 'carryingUmbrella', 'personalFemale', 'carryingFolder', 'accessoryHairBand', 'lowerBodyHotPants', 'accessoryKerchief', 'lowerBodyLongSkirt', 'upperBodyLongSleeve', 'lowerBodyPlaid', 'lowerBodyThinStripes', 'carryingLuggageCase', 'upperBodyNoSleeve', 'hairShort', 'footwearStocking', 'upperBodySuit', 'carryingSuitcase', 'lowerBodySuits', 'upperBodySweater', 'upperBodyThickStripes']
-        print(self.classes)
+        if "PETA" in model_name:
+            self.classes = ['personalLess30', 'personalLess45', 'personalLess60', 'personalLarger60', 'carryingBackpack', 'carryingOther', 'lowerBodyCasual', 'upperBodyCasual', 'lowerBodyFormal', 'upperBodyFormal', 'accessoryHat', 'upperBodyJacket', 'lowerBodyJeans', 'footwearLeatherShoes', 'upperBodyLogo', 'hairLong', 'personalMale', 'carryingMessengerBag', 'accessoryMuffler', 'accessoryNothing', 'carryingNothing', 'upperBodyPlaid', 'carryingPlasticBags', 'footwearSandals', 'footwearShoes', 'lowerBodyShorts', 'upperBodyShortSleeve', 'lowerBodyShortSkirt', 'footwearSneaker', 'upperBodyThinStripes', 'accessorySunglasses', 'lowerBodyTrousers', 'upperBodyTshirt', 'upperBodyOther', 'upperBodyVNeck', 'upperBodyBlack', 'upperBodyBlue', 'upperBodyBrown', 'upperBodyGreen', 'upperBodyGrey', 'upperBodyOrange', 'upperBodyPink', 'upperBodyPurple', 'upperBodyRed', 'upperBodyWhite', 'upperBodyYellow', 'lowerBodyBlack', 'lowerBodyBlue', 'lowerBodyBrown', 'lowerBodyGreen', 'lowerBodyGrey', 'lowerBodyOrange', 'lowerBodyPink', 'lowerBodyPurple', 'lowerBodyRed', 'lowerBodyWhite', 'lowerBodyYellow', 'hairBlack', 'hairBlue', 'hairBrown', 'hairGreen', 'hairGrey', 'hairOrange', 'hairPink', 'hairPurple', 'hairRed', 'hairWhite', 'hairYellow', 'footwearBlack', 'footwearBlue', 'footwearBrown', 'footwearGreen', 'footwearGrey', 'footwearOrange', 'footwearPink', 'footwearPurple', 'footwearRed', 'footwearWhite', 'footwearYellow', 'accessoryHeadphone', 'personalLess15', 'carryingBabyBuggy', 'hairBald', 'footwearBoots', 'lowerBodyCapri', 'carryingShoppingTro', 'carryingUmbrella', 'personalFemale', 'carryingFolder', 'accessoryHairBand', 'lowerBodyHotPants', 'accessoryKerchief', 'lowerBodyLongSkirt', 'upperBodyLongSleeve', 'lowerBodyPlaid', 'lowerBodyThinStripes', 'carryingLuggageCase', 'upperBodyNoSleeve', 'hairShort', 'footwearStocking', 'upperBodySuit', 'carryingSuitcase', 'lowerBodySuits', 'upperBodySweater', 'upperBodyThickStripes']
+        else:
+            self.classes = ['Hat', 'Glasses', 'ShortSleeve', 'LongSleeve', 'UpperStride', 'UpperLogo', 'UpperPlaid', 'UpperSplice', 'LowerStripe', 'LowerPattern', 'LongCoat', 'Trousers', 'Shorts', 'Skirt&Dress', 'boots', 'HandBag', 'ShoulderBag', 'Backpack', 'HoldObjectsInFront', 'AgeOver60', 'Age18-60', 'AgeLess18', 'Female', 'Front', 'Side', 'Back']
+        # print(self.classes)
         ie = Core()
         path = "%s/%s.xml" % (models_dir, model_name)
         net = ie.read_model(model=path)

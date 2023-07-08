@@ -2,7 +2,7 @@
 type: intent
 name: arrive
 utterances:
-  - i arrived
+  - thank you, i arrived
   - we reached the destination
   - we reached the car park
   - i arrived the car park

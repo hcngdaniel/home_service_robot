@@ -1,0 +1,17 @@
+---
+type: intent
+name: CallAmbulance
+utterances:
+  - my leg fractured, please help me call the ambulance
+  - can you call the ambulance for me
+  - i need you to call the ambulance because i have broken my legs
+  - please call the ambulance for me
+---
+type: intent
+name: OpenDoor
+utterances:
+  - Please open the door
+  - Can you open the door for me
+  - open the door
+  - unlock the door
+

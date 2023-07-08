@@ -1,0 +1,36 @@
+---
+type: intent
+name: findmates
+utterances:
+  - find my mates
+  - please find my mates
+  - find my mates please
+  - go to another room to find my mates
+  - find my friends
+  - go find my mates
+---
+type: intent
+name: mynameis
+slots:
+  - name: name
+    entity: name
+utterances:
+  - My name is [name](Emma)
+  - I am [name](Aiden)
+  - You can call me [name](Nathan)
+---
+type: entity
+name: name
+automatically_extensible: no
+values: 
+  - James
+  - Alexander
+  - George
+  - Henry
+  - Daniel
+  - Oliver
+  - Emma
+  - John
+  - Thomas
+  - William
+  - Sophia

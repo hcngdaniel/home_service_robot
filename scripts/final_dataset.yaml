@@ -1,0 +1,13 @@
+---
+type: intent
+name: bill
+utterances:
+ - I want to pay the bill now
+ - pay the bill
+ - give money
+---
+type: intent
+name: leave
+utterances:
+ - I want to leave now
+ - May I leave now?

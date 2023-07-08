@@ -43,13 +43,8 @@ class Chassis:
         limit_time = 8
         start_time = rospy.get_time()
         while not rospy.is_shutdown():
-            q = [
-                self.imu_data.orientation.x,
-                self.imu_data.orientation.y,
-                self.imu_data.orientation.z,
-                self.imu_data.orientation.w
-            ]
-            roll, pitch, yaw = euler_from_quaternion(q)
+            _, q = self.get_odom()
+            roll, pitch, yaw = q
             e = angle - yaw
             if yaw < 0 and angle > 0:
                 cw = np.pi + yaw + np.pi - angle
@@ -68,13 +63,8 @@ class Chassis:
         self.move(0.0, 0.0)
 
     def turn(self, angle: float, speed: float):
-        q = [
-            self.imu_data.orientation.x,
-            self.imu_data.orientation.y,
-            self.imu_data.orientation.z,
-            self.imu_data.orientation.w
-        ]
-        roll, pitch, yaw = euler_from_quaternion(q)
+        _, q = self.get_odom()
+        roll, pitch, yaw = q
         target = yaw + angle
         if target > np.pi:
             target = target - np.pi * 2
@@ -85,7 +75,7 @@ class Chassis:
     def move_for(self, distance, speed):
         start_pos, start_angle = self.get_odom()
         now_pos, now_angle = start_pos, start_angle
-        while ((start_pos.x - now_pos.x) ** 2 + (start_pos.y - now_pos.y) ** 2) ** 0.5 < distance:
+        while ((start_pos.x - now_pos.x) ** 2 + (start_pos.y - now_pos.y) ** 2) ** 0.5 < distance and not rospy.is_shutdown():
             self.move(speed, 0)
             now_pos, now_angle = self.get_odom()
             rospy.Rate(16).sleep()

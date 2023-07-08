@@ -6,10 +6,11 @@ from mr_voice.msg import Voice
 
 
 class Respeaker:
-    def __init__(self, voice_topic="/voice/text", say_topic="/speaker/say", audio_path_topic="/respeaker/audio_path"):
+    def __init__(self, voice_topic="/voice/text", say_topic="/speaker/say", audio_path_topic="/respeaker/audio_path", verbose=False):
         self.voice_topic = voice_topic
         self.say_topic = say_topic
         self.audio_path_topic = audio_path_topic
+        self.verbose = verbose
         
         self.say_pub = rospy.Publisher(self.say_topic, String, queue_size=10)
         
@@ -41,6 +42,8 @@ class Respeaker:
         return path
     
     def say(self, text):
+        if self.verbose:
+            print(f"spoken text: {text}")
         self.say_pub.publish(text)
 
 

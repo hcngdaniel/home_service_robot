@@ -1,0 +1,47 @@
+---
+type: intent
+name: tellName
+slots:
+  - name: name
+    entity: name
+utterances:
+  - I am [name](Emma)
+  - My name is [name](Daniel)
+  - You can call me [name](Emma)
+---
+type: intent
+name: tellDrink
+slots:
+  - name: drink
+    entity: drink
+utterances:
+  - I would like to drink [drink](coffee)
+  - I prefer [drink](apple juice)
+  - My favourite drink is [drink](tea)
+---
+type: entity
+name: name
+automatically_extensible: no
+values: 
+  - coffee
+  - lemonade
+  - tea
+  - apple juice
+  - water
+  - pepsi
+---
+type: entity
+name: name
+automatically_extensible: no
+values: 
+  - James
+  - Alexander
+  - George
+  - Henry
+  - Daniel
+  - Oliver
+  - Emma
+  - John
+  - Thomas
+  - William
+  - Sophia

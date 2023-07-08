@@ -9,10 +9,11 @@ from actionlib_msgs.msg import GoalStatusArray
 
 
 class Navigation:
-    def __init__(self, frame_id="map"):
+    def __init__(self, frame_id="map", testing=False):
         
         self.move_base = actionlib.SimpleActionClient("move_base", MoveBaseAction)
-        
+        self.testing = testing
+
         rospy.loginfo("Waiting for move_base action server...")
         self.move_base.wait_for_server(rospy.Duration(120))
         rospy.loginfo("Connected to move base server")
@@ -131,6 +132,7 @@ class Navigation:
         return success
     
     def move_to(self, x, y, a):
+        if self.testing: return
         goal = self.point_to_pose(x, y, a)
         self.move_to_pose(goal)
         while not rospy.is_shutdown():

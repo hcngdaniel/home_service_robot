@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import sys
+sys.path.append("/home/pcms/catkin_ws/src/home_service_robot/scripts")
 import rospy
 import core
 import time
@@ -11,8 +13,8 @@ time.sleep(1)
 navigation = core.Navigation()
 time.sleep(1)
 
-init_pose = (1.01, 0.165, 0)
-target_pose = (-0.162, 3.48, 0)
+init_pose = (0.925, -2.98, 0)
+target_pose = (2.36, -1, 1.57)
 
 while not rospy.is_shutdown():
     navigation.move_to(*init_pose)

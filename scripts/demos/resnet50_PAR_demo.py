@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
+import sys
+sys.path.append("/home/pcms/catkin_ws/src/home_service_robot/scripts")
 import cv2
 import core
 import rospy
 
 
 yolo = core.openvino_models.Yolov8("yolov8n")
-resnet50_PAR = core.openvino_models.resnet50_PAR()
+resnet50_PAR = core.openvino_models.resnet50_PAR(model_name="resnet50_PAR")
 
 cap = cv2.VideoCapture(0)
 while not rospy.is_shutdown():
